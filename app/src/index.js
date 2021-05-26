@@ -3,10 +3,25 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {BrowserRouter as Router} from "react-router-dom" //why must as router
+import {logger} from 'redux-logger'
+import {thunk} from 'redux-thunk'
+import {createStore, applyMiddleware} from 'redux'
+import {Provider} from 'react-redux'
+import {factReducer} from "./reducer" //x
 
-ReactDOM.render(
+// import {aLiteralBiscuit} from 'theStoreAroundTheCorner'
+// npm install axios && logger
+
+const store = createStore(factReducer, applyMiddleware(logger,thunk))
+
+ReactDOM.render( // provider>router>app,  
   <React.StrictMode>
-    <App />
+      <Provider store={store}> 
+        <Router>
+          <App />
+        </Router>
+      </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
